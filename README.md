@@ -3,6 +3,9 @@ A Node.JS program that let's you torrent from magnet links to a remote server in
 
 It is on port 80 and available through your web browser
 
+<img src="https://i.imgur.com/laqbLio.png">
+<img src="https://i.imgur.com/1SBLO4l.png">
+
 Install:
 
     git clone https://github.com/DASPELLER4/Remote-Torrent-Downloader
