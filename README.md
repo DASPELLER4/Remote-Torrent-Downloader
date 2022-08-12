@@ -4,6 +4,12 @@ A Node.JS program that let's you torrent from magnet links to a remote server in
 Install requirments:
 
     npm install express body-parser
+    #Ubuntu/Debian
+    apt-get install aria2
+    #Gentoo
+    emerge -a net-misc/aria2
+    #Arch
+    pacman -S aria2
     
 Run web server (as root):
 
