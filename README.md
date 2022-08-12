@@ -6,8 +6,6 @@ Install requirments:
     npm install express body-parser
     #Ubuntu/Debian
     apt-get install aria2
-    #Gentoo
-    emerge -a net-misc/aria2
     #Arch
     pacman -S aria2
     
