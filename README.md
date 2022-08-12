@@ -14,7 +14,7 @@ Install requirments (as root):
     apt install aria2
     #Arch
     pacman -S aria2
-    #From source
+    #From source (root required for autoreconf and make install)
     git clone https://github.com/aria2/aria2.git; cd aria2; autoreconf -i; ./configure; make; make install; cd ..
     #To remove aria2c from source use 'make uninstall'
     
