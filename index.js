@@ -4,6 +4,11 @@ var bodyParser = require('body-parser');
 app.use(bodyParser());
 var path = require('path');
 var fs = require("fs");
+
+if (!fs.existsSync(__dirname+'/public')){
+    fs.mkdirSync(__dirname+'/public');
+}
+
 app.get('/', function (req, res) {
 	res.sendFile(path.join(__dirname+'/index.html'));
 });
