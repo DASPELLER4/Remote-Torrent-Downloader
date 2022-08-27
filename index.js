@@ -29,7 +29,7 @@ function getDir(dir,level,downloading){
                 if(!file.includes(".aria2")){
                         if(fs.lstatSync(dir+"/"+file).isDirectory()){
                                 response+="<p style=\"" + isAvailable + "white-space: nowrap; display:inline; margin-left: " + (30*level).toString() + "px\">📁"+file+"</p><br>";
-                                response+=getDir(dir+"/"+file,level+1,d,parnt+"file");
+                                response+=getDir(dir+"/"+file,level+1,d);
                         } else {
                                 response+="<a style=\"" + isAvailable + "white-space: nowrap; margin-left: " + (30*level).toString() + "px\" href=\""+dir.replace("/root/reece illegal/","")+"/"+file+"\">📄"+file+"</a><br>";
                         }
