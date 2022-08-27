@@ -13,18 +13,29 @@ app.get('/', function (req, res) {
 	res.sendFile(path.join(__dirname+'/index.html'));
 });
 
-function getDir(dir,level){
-	response = "";
-	let filenames = fs.readdirSync(dir);
-	filenames.forEach((file) => {
-		if(fs.lstatSync(dir+"/"+file).isDirectory()){
-        		response+="<p style=\"white-space: nowrap; display:inline; margin-left: " + (30*level).toString() + "px\">📁"+file+"</p><br>";
-			response+=getDir(dir+"/"+file,level+1);
-		} else {
-			response+="<a style=\"white-space: nowrap; margin-left: " + (30*level).toString() + "px\" href=\""+dir.replace("/root/reece illegal/","")+"/"+file+"\">📄"+file+"</a><br>";
-		}
-	});
-	return response;
+function getDir(dir,level,downloading){
+        response = "";
+        let filenames = fs.readdirSync(dir);
+        filenames.forEach((file) => {
+                isAvailable = "";
+                d = downloading;
+                if(d){
+                        isAvailable = "color: red; ";
+                }
+                if(fs.existsSync(dir+"/"+file+".aria2")){
+                        isAvailable = "color: red; "
+                        d = true;
+                }
+                if(!file.includes(".aria2")){
+                        if(fs.lstatSync(dir+"/"+file).isDirectory()){
+                                response+="<p style=\"" + isAvailable + "white-space: nowrap; display:inline; margin-left: " + (30*level).toString() + "px\">📁"+file+"</p><br>";
+                                response+=getDir(dir+"/"+file,level+1,d,parnt+"file");
+                        } else {
+                                response+="<a style=\"" + isAvailable + "white-space: nowrap; margin-left: " + (30*level).toString() + "px\" href=\""+dir.replace("/root/reece illegal/","")+"/"+file+"\">📄"+file+"</a><br>";
+                        }
+                }
+        });
+        return response;
 }
 
 app.post('/submit', function(req,res){
@@ -48,7 +59,7 @@ app.post('/submit', function(req,res){
 });
 
 app.get('/list', function(req,res){
-	var response = "<h1>Downloads</h2><p>If you just got sent here from pressing \"submit\", do not worry if your file/.aria2 isn't here immediately, it takes some time to start the download (this grows inversely with the amount of seeders and proportionally with size of the torrent and how many files it has), if it has been >10 minutes, your download probably failed</p><p>If you see your desired file but there is another one that ends in .aria2, leave it, it is still downloading! You can refresh the page later</p><hr>"+getDir(path.join(__dirname+'/public'), 0);
+	var response = "<h1>Downloads</h2><p>If you just got sent here from pressing \"submit\", do not worry if your files are not here yet, it can take some time to start the download</p><p>If your file is red, it is still downloading! You can refresh the page later</p><hr>"+getDir(path.join(__dirname+'/public'), 0, false);
 	res.send(response);
 });
 
