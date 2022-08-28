@@ -13,10 +13,15 @@ app.get('/', function (req, res) {
 	res.sendFile(path.join(__dirname+'/index.html'));
 });
 
+function sanitiseNames(str){
+        return str.replace(/[\W_]+/g, ' ').replace(new RegExp(' ', 'g'),'');
+}
+
 function getDir(dir,level,downloading,parentdir){
         response = "";
         let filenames = fs.readdirSync(dir);
         filenames.forEach((file) => {
+                var p = parentdir;
                 isAvailable = "";
                 d = downloading;
                 if(d){
@@ -28,13 +33,13 @@ function getDir(dir,level,downloading,parentdir){
                 }
                 if(!file.includes(".aria2")){
                         if(fs.lstatSync(dir+"/"+file).isDirectory()){
-				if(parentdir==""){
-					p = file;
-                                	response+="<p style=\"" + isAvailable + "white-space: nowrap; display:inline; margin-left: " + (30*level).toString() + "px\">📁"+file+"</p> <a style=\"color: blue; text-decoration: underline;\" onclick=\"" + file + "FUNC1345();\">Collapse</a><br><script>var " + file + "Toggle=true; function " + file + "FUNC1345(){if(" + file + "Toggle){Array.from(document.getElementsByClassName(\"" + file + "\")).forEach((item, index) => {item.style.visibility = \"hidden\"; item.style.lineHeight=\"0\";});}else{Array.from(document.getElementsByClassName(\"" + file + "\")).forEach((item, index) => {item.style.visibility = \"visible\"; item.style.lineHeight=\"1\";});}" + file + "Toggle = !" + file + "Toggle;}</script>";
-				}else{
-					p = parentdir;
-                                	response+="<p class=\"" + p + "\" style=\"" + isAvailable + "white-space: nowrap; display:inline; margin-left: " + (30*level).toString() + "px\">📁"+file+"</p><br>";
-				}
+                                if(parentdir==""){
+                                        p = sanitiseNames(file);
+                                        response+="<p style=\"" + isAvailable + "white-space: nowrap; display:inline; margin-left: " + (30*level).toString() + "px\">📁"+file+"</p> <a style=\"color: blue; text-decoration: underline;\" onclick=\"" + sanitiseNames(file) + "FUNC1345();\">Collapse</a><br><script>var " + sanitiseNames(file) + "Toggle=true; function " + sanitiseNames(file) + "FUNC1345(){if(" + sanitiseNames(file) + "Toggle){Array.from(document.getElementsByClassName(\"" + sanitiseNames(file) + "\")).forEach((item, index) => {item.style.visibility = \"hidden\"; item.style.lineHeight=\"0\";});}else{Array.from(document.getElementsByClassName(\"" + sanitiseNames(file) + "\")).forEach((item, index) => {item.style.visibility = \"visible\"; item.style.lineHeight=\"1\";});}" + sanitiseNames(file) + "Toggle = !" + sanitiseNames(file) + "Toggle;}</script>";
+                                }else{
+                                        p = parentdir;
+                                        response+="<p class=\"" + p + "\" style=\"" + isAvailable + "white-space: nowrap; display:inline; margin-left: " + (30*level).toString() + "px\">>📁"+file+"</p><br>";
+                                }
                                 response+=getDir(dir+"/"+file,level+1,d,p);
                         } else {
                                 response+="<a class=\"" + p + "\"style=\"" + isAvailable + "white-space: nowrap; margin-left: " + (30*level).toString() + "px\" href=\""+dir.replace("/root/reece illegal/","")+"/"+file+"\">📄"+file+"</a><br>";
