@@ -13,7 +13,7 @@ app.get('/', function (req, res) {
 	res.sendFile(path.join(__dirname+'/index.html'));
 });
 
-function getDir(dir,level,downloading){
+function getDir(dir,level,downloading,parentdir){
         response = "";
         let filenames = fs.readdirSync(dir);
         filenames.forEach((file) => {
@@ -28,10 +28,16 @@ function getDir(dir,level,downloading){
                 }
                 if(!file.includes(".aria2")){
                         if(fs.lstatSync(dir+"/"+file).isDirectory()){
-                                response+="<p style=\"" + isAvailable + "white-space: nowrap; display:inline; margin-left: " + (30*level).toString() + "px\">📁"+file+"</p><br>";
-                                response+=getDir(dir+"/"+file,level+1,d);
+				if(parentdir==""){
+					p = file;
+                                	response+="<p style=\"" + isAvailable + "white-space: nowrap; display:inline; margin-left: " + (30*level).toString() + "px\">📁"+file+"</p> <a style=\"color: blue; text-decoration: underline;\" onclick=\"" + file + "FUNC1345();\">Collapse</a><br><script>var " + file + "Toggle=true; function " + file + "FUNC1345(){if(" + file + "Toggle){Array.from(document.getElementsByClassName(\"" + file + "\")).forEach((item, index) => {item.style.visibility = \"hidden\"; item.style.lineHeight=\"0\";});}else{Array.from(document.getElementsByClassName(\"" + file + "\")).forEach((item, index) => {item.style.visibility = \"visible\"; item.style.lineHeight=\"1\";});}" + file + "Toggle = !" + file + "Toggle;}</script>";
+				}else{
+					p = parentdir;
+                                	response+="<p class=\"" + p + "\" style=\"" + isAvailable + "white-space: nowrap; display:inline; margin-left: " + (30*level).toString() + "px\">📁"+file+"</p><br>";
+				}
+                                response+=getDir(dir+"/"+file,level+1,d,p);
                         } else {
-                                response+="<a style=\"" + isAvailable + "white-space: nowrap; margin-left: " + (30*level).toString() + "px\" href=\""+dir.replace("/root/reece illegal/","")+"/"+file+"\">📄"+file+"</a><br>";
+                                response+="<a class=\"" + p + "\"style=\"" + isAvailable + "white-space: nowrap; margin-left: " + (30*level).toString() + "px\" href=\""+dir.replace("/root/reece illegal/","")+"/"+file+"\">📄"+file+"</a><br>";
                         }
                 }
         });
@@ -45,7 +51,7 @@ app.post('/submit', function(req,res){
 	}
 	res.redirect('/list');
 	const { exec } = require("child_process");
-	exec("aria2c --seed-time=0 \'" + req.body.magnet + "\' -d \'public/\'", (error, stdout, stderr) => {
+	exec("aria2c \'" + req.body.magnet + "\' -d \'public/\'", (error, stdout, stderr) => {
 		if (error) {
 			console.log(error.message);
 			return;
@@ -59,7 +65,7 @@ app.post('/submit', function(req,res){
 });
 
 app.get('/list', function(req,res){
-	var response = "<h1>Downloads</h2><p>If you just got sent here from pressing \"submit\", do not worry if your files are not here yet, it can take some time to start the download</p><p>If your file is red, it is still downloading! You can refresh the page later</p><hr>"+getDir(path.join(__dirname+'/public'), 0, false);
+	var response = "<h1>Downloads</h2><p>If you just got sent here from pressing \"submit\", do not worry if your files are not here yet, it can take some time to start the download</p><p>If your file is red, it is still downloading! You can refresh the page later</p><hr>"+getDir(path.join(__dirname+'/public'), 0, false, "");
 	res.send(response);
 });
 
