@@ -44,7 +44,7 @@ function getDir(dir,level,downloading,parentdir){
                                 }
                                 response+=getDir(dir+"/"+file,level+1,d,p);
                         } else {
-                                response+="<a class=\"" + p + "\"style=\"" + isAvailable + "white-space: nowrap; margin-left: " + (30*level).toString() + "px\" href=\""+dir.replace(downloadDir+"/","public")+"/"+file+"\">📄"+file+"</a><br>";
+                                response+="<a class=\"" + p + "\"style=\"" + isAvailable + "white-space: nowrap; margin-left: " + (30*level).toString() + "px\" href=\""+dir.replace(downloadDir,"public")+"/"+file+"\">📄"+file+"</a><br>";
                         }
                 }
         });
@@ -59,7 +59,7 @@ app.post('/submit', function(req,res){
 	res.redirect('/list');
 	const { execFile } = require("child_process");
         console.log("Downloading from magnet: ", req.body.magnet)
-	execFile("aria2c", ["--seed-time=0", req.body.magnet, "-d", "public"], (error, stdout, stderr) => {
+	execFile("aria2c", ["--seed-time=0", req.body.magnet, "-d", downloadDir], (error, stdout, stderr) => {
 		if (error) {
 			console.log(error.message);
 			return;
