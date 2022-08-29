@@ -42,7 +42,7 @@ function getDir(dir,level,downloading,parentdir){
                                 }
                                 response+=getDir(dir+"/"+file,level+1,d,p);
                         } else {
-                                response+="<a class=\"" + p + "\"style=\"" + isAvailable + "white-space: nowrap; margin-left: " + (30*level).toString() + "px\" href=\""+dir.replace("/root/reece illegal/","")+"/"+file+"\">📄"+file+"</a><br>";
+                                response+="<a class=\"" + p + "\"style=\"" + isAvailable + "white-space: nowrap; margin-left: " + (30*level).toString() + "px\" href=\""+dir.replace(__dirname+"/","")+"/"+file+"\">📄"+file+"</a><br>";
                         }
                 }
         });
