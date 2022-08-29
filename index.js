@@ -56,7 +56,7 @@ app.post('/submit', function(req,res){
 	}
 	res.redirect('/list');
 	const { exec } = require("child_process");
-        console.log("Downloading ", req.body.magnet)
+        console.log("Downloading from magnet: ", req.body.magnet)
 	exec("aria2c --seed-ratio=1.0 \'" + req.body.magnet + "\' -d \'public/\'", (error, stdout, stderr) => {
 		if (error) {
 			console.log(error.message);
