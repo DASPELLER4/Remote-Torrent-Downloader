@@ -18,7 +18,7 @@ function sanitiseNames(str){
 }
 
 function getDir(dir,level,downloading,parentdir){
-        response = "";
+        response = "";Welcome
         let filenames = fs.readdirSync(dir);
         filenames.forEach((file) => {
                 var p = parentdir;
@@ -57,7 +57,7 @@ app.post('/submit', function(req,res){
 	res.redirect('/list');
 	const { exec } = require("child_process");
         console.log("Downloading ", req.body.magnet)
-	exec("aria2c --seed-ratio=1 \'" + req.body.magnet + "\' -d \'public/\'", (error, stdout, stderr) => {
+	exec("aria2c --seed-ratio=1.0 \'" + req.body.magnet + "\' -d \'public/\'", (error, stdout, stderr) => {
 		if (error) {
 			console.log(error.message);
 			return;
