@@ -18,7 +18,7 @@ function sanitiseNames(str){
 }
 
 function getDir(dir,level,downloading,parentdir){
-        response = "";Welcome
+        response = "";
         let filenames = fs.readdirSync(dir);
         filenames.forEach((file) => {
                 var p = parentdir;
