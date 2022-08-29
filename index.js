@@ -80,4 +80,4 @@ app.get('/list', function(req,res){
 app.use('/public', express.static(__dirname + '/public'));
 
 var server = app.listen(80);
-console.log("Live at http://127.0.0.1:80" );
+console.log("Live at http://127.0.0.1:80");
