@@ -38,7 +38,7 @@ function getDir(dir,level,downloading,parentdir){
                                         response+="<p style=\"" + isAvailable + "white-space: nowrap; display:inline; margin-left: " + (30*level).toString() + "px\">📁"+file+"</p> <a style=\"color: blue; text-decoration: underline;\" onclick=\"collapse('"+sanitiseNames(file)+"');\">↩️</a><br>";
                                 }else{
                                         p = parentdir;
-                                        response+="<p class=\"" + p + "\" style=\"" + isAvailable + "white-space: nowrap; display:inline; margin-left: " + (30*level).toString() + "px\">>📁"+file+"</p><br>";
+                                        response+="<p class=\"" + p + "\" style=\"" + isAvailable + "white-space: nowrap; display:inline; margin-left: " + (30*level).toString() + "px\">📁"+file+"</p><br>";
                                 }
                                 response+=getDir(dir+"/"+file,level+1,d,p);
                         } else {
