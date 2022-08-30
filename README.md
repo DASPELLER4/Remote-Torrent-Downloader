@@ -6,7 +6,7 @@ It is on port 80 and available through your web browser
 You can change the directory files are downloaded to by changing the downloadDir variable to any directory, you can remove the __dirname if you intend to have the directory outside of the Remote-Torrent-Downloader folder
 
 <img src="https://i.imgur.com/u9rU5to.png">
-<img src="https://i.imgur.com/cZupv9C.png">
+<img src="https://i.imgur.com/xYsfDZI.png">
 
 Install:
 
