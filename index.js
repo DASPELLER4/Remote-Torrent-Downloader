@@ -5,7 +5,7 @@ app.use(bodyParser());
 var path = require('path');
 var fs = require("fs");
 
-const downloadDir = __dirname+'/poo';
+const downloadDir = __dirname+'/public';
 
 if (!fs.existsSync(downloadDir)){
 	fs.mkdirSync(downloadDir);
@@ -69,7 +69,7 @@ app.post('/submit', function(req,res){
 	var x = "";
 	if(req.body.password){
 		x="/private/"+req.body.password;
-		if(!existsSync(downloadDir+x)){
+		if(!fs.existsSync(downloadDir+x)){
 			fs.mkdirSync(downloadDir+x);
 		}
 		res.redirect('/list?pass='+req.body.password);
