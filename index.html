@@ -11,7 +11,7 @@ html{
 	<input id="link" style="border: 2px solid white; border-radius: 5px; background: radial-gradient(circle at 50%,#1F1F1F,#1D1D1D); width: 65%; height: 33px; color: white; padding-left: 10px" type="text" id="magnet-input" name="magnet" placeholder="Enter magnet link">
 	<input style="border: 2px solid white; border-radius: 5px; width: 15%; height: 33px; background-color: #00EB72; color: white; font-weight:bolder" type="submit" value="Download"><br>
 	<div style="padding-top:3px">
-		<input id="password" style="border: 2px solid white; border-radius: 5px; background: radial-gradient(circle at 50%,#1F1F1F,#1D1D1D); width: 25%; height: 33px; color: white; padding-left: 10px" name="password" placeholder="Password" value="">
+		<input id="password" style="border: 2px solid white; border-radius: 5px; background: radial-gradient(circle at 50%,#1F1F1F,#1D1D1D); width: 25%; height: 33px; color: white; padding-left: 10px" name="password" placeholder="Password" value="" onkeypress="document.getElementById('password').style.boxShadow = ''">
 		<button type="button" style="border: 2px solid white; border-radius: 5px; width: 15%; height: 33px; background-color: #00EB72; color: white; font-weight:bolder" onclick="document.getElementById('password').value = '';">Clear</button>
 	</div>
 </form>
@@ -24,6 +24,10 @@ html{
 </body></html>
 <script>
 	function withPassRedirect(){
-		window.location = '/list?pass='+document.getElementById("password").value;
+		if(document.getElementById("password").value != ''){
+			window.location = '/list?pass='+document.getElementById("password").value;
+		}else{
+			document.getElementById("password").style.boxShadow = "inset 0 0 5px 5px #822"
+		}
 	}
 </script>
