@@ -76,7 +76,7 @@ app.post('/submit', function(req,res){
 	}else{res.redirect('/list');}
 	const { execFile } = require("child_process");
         console.log("Downloading from magnet: ", req.body.magnet)
-	execFile("aria2c", ["--seed-time=0", req.body.magnet, "-d", downloadDir+x], (error, stdout, stderr) => {
+	execFile("aria2c", ["--seed-time=0", "-j1", req.body.magnet, "-d", downloadDir+x], (error, stdout, stderr) => {
 		if (error) {
 			console.log(error.message);
 			return;
