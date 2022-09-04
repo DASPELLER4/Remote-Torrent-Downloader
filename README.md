@@ -10,7 +10,7 @@ You can change the directory files are downloaded to by changing the downloadDir
 
 Install:
 
-    git clone https://github.com/DASPELLER4/Remote-Torrent-Downloader
+    git clone https://github.com/DASPELLER4/dRippr
 
 Install requirments (as root):
 
