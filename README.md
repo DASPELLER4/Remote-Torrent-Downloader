@@ -14,7 +14,7 @@ Install:
 
 Install requirments (as root):
 
-    cd Remote-Torrent-Downloader 
+    cd dRippr
     npm install express body-parser
     #Install aria2
     #Ubuntu/Debian
