@@ -21,8 +21,39 @@ html{
 	<button style="border: 2px solid white; border-radius: 5px; background-color: #331D52; height: 33px; color: white; font-weight:bolder" onclick="withPassRedirect();">List Of Your Files</button>
 </div>
 </div>
-</body></html>
+<p onclick="toggleAdvanced();" style="color:white;"><u>Advanced</u></p>
+<form action="/submitlocal" method="POST" enctype="multipart/form-data" id="localupload">
+	<label for="files" style="border: 2px solid white; border-radius: 5px;font-size: 0.8em;background-color: #00EB72; color: white; font-weight:bolder; font-size: 1em">
+		Select Files
+	</label><br>
+	<input type="file" id="files" name="files" multiple style="display: none;">
+	<p style="color: white; display:inline-block;">Save File(s) In Folder? :</p>
+	<input type="checkbox" name="folderCheck" id="fCheck" onchange="toggleFName();">
+	<input type="text" name="folderName" placeholder="Folder Name" id="folderName" style="border: 2px solid white; border-radius: 5px; background: radial-gradient(circle at 50%,#1F1F1F,#1D1D1D); width: 25%; height: 33px; color: white; padding-left: 10px"><br>
+	<input id="password2" style="border: 2px solid white; border-radius: 5px; background: radial-gradient(circle at 50%,#1F1F1F,#1D1D1D); width: 25%; height: 33px; color: white; padding-left: 10px" name="password" placeholder="Password" value="" onkeypress="document.getElementById('password2').style.boxShadow = ''">
+	<button type="button" style="border: 2px solid white; border-radius: 5px; width: 15%; height: 33px; background-color: #00EB72; color: white; font-weight:bolder" onclick="document.getElementById('password2').value = '';">Clear</button><br><br>
+<input type="submit" style="border: 2px solid white; border-radius: 5px; width: 15%; height: 33px; background-color: #00EB72; color: white; font-weight:bolder" value="Submit">
+</form>
+</body>
+</html>
 <script>
+	function toggleFName(){
+		if(!document.getElementById("fCheck").checked){
+			document.getElementById("folderName").readOnly = true;
+			document.getElementById("folderName").value = "";
+		} else {
+			document.getElementById("folderName").readOnly = false;
+		}
+	}
+	var advTog = 1;
+	function toggleAdvanced(){
+		if(advTog){
+			document.getElementById("localupload").hidden = true;
+		} else {
+			document.getElementById("localupload").hidden = false;
+		}
+		advTog = !advTog;
+	}
 	function withPassRedirect(){
 		if(document.getElementById("password").value != ''){
 			window.location = '/list?pass='+document.getElementById("password").value;
@@ -30,4 +61,6 @@ html{
 			document.getElementById("password").style.boxShadow = "inset 0 0 5px 5px #822"
 		}
 	}
+	toggleFName();
+	toggleAdvanced();
 </script>

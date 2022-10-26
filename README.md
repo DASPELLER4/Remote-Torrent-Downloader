@@ -15,7 +15,7 @@ Install:
 Install requirments (as root):
 
     cd dRippr
-    npm install express body-parser
+    npm install express body-parser express-fileupload
     #Install aria2
     #Ubuntu/Debian
     apt install aria2
