@@ -1,7 +1,11 @@
 var express = require('express');
+var fileUpload = require("express-fileupload");
 var app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser());
+app.use(
+	  fileUpload()
+);
 var path = require('path');
 var fs = require("fs");
 
@@ -60,7 +64,32 @@ function getDir(dir,level,downloading,parentdir){
         });
         return response;
 }
-
+app.post('/submitlocal', function(req,res){
+	if(!req.files){
+		res.end("No Files Sent");
+		return;
+	}
+	var x = ""
+	if(req.body.password){
+		x="/private/"+req.body.password;
+		if(!fs.existsSync(downloadDir+x)){
+			fs.mkdirSync(downloadDir+x);
+		}
+		res.redirect('/list?pass='+req.body.password);
+	}else{res.redirect('/list');}
+	if(req.body.folderName){
+		fs.mkdirSync(downloadDir+x+"/"+req.body.folderName);
+		x+="/"+req.body.folderName;
+	}
+	if(!req.files.files.length){
+		var path = downloadDir + x + "/" + req.files.files.name;
+		req.files.files.mv(path, (err)=>{console.log(err)});
+	}
+	for(let i = 0; i < req.files.files.length; i++){
+		var path = downloadDir + x + "/" + req.files.files[i].name;
+		req.files.files[i].mv(path, (err))=>{};
+	}
+});
 app.post('/submit', function(req,res){
 	if(!req.body.magnet){
 		res.end("No Magnet Field");
