@@ -87,7 +87,7 @@ app.post('/submitlocal', function(req,res){
 	}
 	for(let i = 0; i < req.files.files.length; i++){
 		var path = downloadDir + x + "/" + req.files.files[i].name;
-		req.files.files[i].mv(path, (err))=>{};
+		req.files.files[i].mv(path, (err)=>{});
 	}
 });
 app.post('/submit', function(req,res){
